@@ -1,0 +1,16 @@
+services:
+  airflow:
+    image: apache/airflow:2.9.3
+    container_name: nyc_taxi_airflow
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - AIRFLOW__CORE__LOAD_EXAMPLES=false
+      - DATABRICKS_HOST=${DATABRICKS_HOST}
+      - DATABRICKS_TOKEN=${DATABRICKS_TOKEN}
+    volumes:
+      - ./dags:/opt/airflow/dags
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "pip install 'apache-airflow-providers-databricks==6.7.0' --constraint 'https://raw.githubusercontent.com/apache/airflow/constraints-2.9.3/constraints-3.12.txt' && airflow standalone"

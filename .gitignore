@@ -1,0 +1,22 @@
+# Secrets -- never commit these
+.env
+*.env
+*token*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Airflow local state
+airflow/logs/
+airflow/airflow.db
+airflow/*.cfg
